@@ -26,7 +26,7 @@ function initMap(){
                 position: pos,
                 map: map,
                 title: 'Vous êtes ici', 
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                icon: 'images/blue-dot.png'
                 
             });
             map.setCenter(pos);

@@ -8,9 +8,6 @@ var defaultRadius = '1000' ; // radius pour la recherche des restaurants
 var starSelectSize = 20; // Taille des étoiles 
 var textSelect = 'Choisir les restaurants à montrer:'; // Texte
 var textBtnSelect = 'Classer restaurants'; // Texte du bouton 
-// Taille des étoiles de la note du restaurant
-var starRestaurantsSize = 20; 
-// Taille des étoiles des avis
-var starRatingsSize = 12;  
-// Nom du fichier Json appellé 
-var jsonFile = 'data/restaurant.json'; 
+var starRestaurantsSize = 20; // Taille des étoiles de la note du restaurant
+var starRatingsSize = 12;  // Taille des étoiles des avis
+var jsonFile = 'data/restaurant.json'; // Nom du fichier Json appellé 
