@@ -1,0 +1,16 @@
+// variables générales
+var defaultPosition = {lat: 48.8737815, lng: 2.3501660};
+var defaultZoom = 16; // default zoom
+var infoWindow;
+var geocoder;
+var service;
+var defaultRadius = '1000' ; // radius pour la recherche des restaurants
+var starSelectSize = 20; // Taille des étoiles 
+var textSelect = 'Choisir les restaurants à montrer:'; // Texte
+var textBtnSelect = 'Classer restaurants'; // Texte du bouton 
+// Taille des étoiles de la note du restaurant
+var starRestaurantsSize = 20; 
+// Taille des étoiles des avis
+var starRatingsSize = 12;  
+// Nom du fichier Json appellé 
+var jsonFile = 'data/restaurant.json'; 

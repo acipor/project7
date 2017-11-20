@@ -1,0 +1,108 @@
+
+<!DOCTYPE html lang="fr">
+<html>
+  <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Avis de Restaurant</title>
+        <!-- link !-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/star-rating-svg.css"> 
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+       
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+            <div class="col-lg-4 leftcol">
+                <div class="row">
+                    <div class="col-xs-12" id="starSelection"></div>
+                    <ul class="col-xs-12 panel-group" id="accordion"></ul>
+                </div>
+            </div>
+            <div class="col-lg-8" id="map"></div> 
+      </div>
+ </div>
+
+   <!-- Modal1 ajout avis restaurant -->
+  <div class="modal fade" id="modal1" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Ajouter un avis restaurant</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                      <div class="col-lg-4"  id="starsForm"></div>
+                      <form class="col-lg-8" id="formRating" onsubmit="return false"> 
+                          <label for="newRatingForm">Votre avis:</label>
+                          <input id="newRatingForm" type="text" style="width:450px;" value="Entrer votre avis ici" class="validate" required>
+                      </form>
+                  </div>  
+                </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+          <button href="!=" type="submit" form="formRating" class="modal-action btn btn-primary">Ajouter</button>
+        </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Modal2 ajout restaurant -->
+  <div class="modal fade" id="modal2" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Ajouter un  restaurant</h4>
+                </div>
+                <div class="modal-body">
+                  <form  id="formRestaurant" onsubmit="return false">
+                        <div class="row">
+                            <div class="col-lg-12">
+                              <label for="newRestaurantName">Nom du restaurant: </label>
+                                <input id="newRestaurantName" type="text" style="width:550px;"class="validate" value="Entrer le nom du restaurant ici" required>
+                            </div>
+                            <br><br>
+                            <div class="col-lg-12">
+                              <label for="newRestaurantAddress">Adresse du restaurant: </label>
+                                <input placeholder=" " disabled id="newRestaurantAddress" type="text" class="validate" style="width:550px;" required>
+                                
+                            </div>
+                        </div>     
+                    </form>
+              </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+          <button href="!=" type="submit" form="formRestaurant" class="modal-action btn btn-primary">Ajouter</button>
+        </div>
+        </div>
+      </div>
+  </div>
+  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/jquery.star-rating-svg.min.js"> </script>
+
+    <script src="js/settings.js"> </script>   
+
+    <script src="js/mapMarkers.js"> </script>     
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBg9TUnWWjWnfzAzBG8UbAfsyXmAe9tIpk&libraries=places&callback=initMap"> </script>
+
+    <script src="js/starSelect.js"> </script>
+
+    <script src="js/restaurants.js"> </script>
+
+     <script src="js/mapControls.js"> </script>
+     
+    <script src="js/main.js"> </script>
+
+</body>
+</html>

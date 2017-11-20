@@ -1,0 +1,52 @@
+[
+   {
+      "restaurantName":"Bronco",
+      "address":"39 Rue des Petites Écuries, 75010 Paris",
+      "lat":48.8737815,
+      "long":2.3501649,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
+         },
+         {
+            "stars":5,
+            "comment":"Tout simplement mon restaurant préféré !"
+         }
+      ]
+   },
+
+   {
+      "restaurantName":"Richer",
+      "address":"2 Rue Richer, 75008 Paris",
+      "lat":48.874348,
+      "long":2.347754,
+      "ratings":[
+         {
+            "stars":2,
+            "comment":"Vin rouge servit chaud,nourriture passable."
+         },
+         {
+            "stars":4,
+            "comment":"Très bon, raffiné et original, prix très raisonnable."
+         }
+      ]
+   },
+
+   {
+      "restaurantName":"Restaurant 52",
+      "address":"52 Rue du Faubourg Saint-Denis, 75010 Paris",
+      "lat":48.872039, 
+      "long":2.354093,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
+         },
+         {
+            "stars":5,
+            "comment":"Tout simplement mon restaurant préféré !"
+         }
+      ]
+   }
+]
