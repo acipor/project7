@@ -58,10 +58,9 @@ map.addListener('click', function(event){
         var lat = clickPosition.lat(); // Lat du click
         var long = clickPosition.lng(); // Lng du click
         // création du restaurant 
-        var newRestaurant = new createNewRestaurant(restaurantName, address, lat, long);
-        console.log(newRestaurant);
+        var newRestaurant = new Restaurant(restaurantName, address, lat, long);
         var liLength = $('li').length; 
-        addRestaurant(newRestaurant, (liLength+1)); // On ajoute le restaurant à la li
+        newRestaurant.listRestaurant((liLength+1)); // On ajoute le restaurant à la li
         addMarker(clickPosition, (liLength+1).toString(), restaurantName, liLength); // On ajoute le marker du restaurant
         $('li').last().find('.restaurantAvgRating').starRating({ // Ajout de la note moyenne à ce restaurant
             initialRating: 0,
@@ -69,7 +68,7 @@ map.addListener('click', function(event){
             starSize: starRestaurantsSize
         });  
     }); 
-});
+}); 
 
 // recherche de restaurants  autour de position
 function addRestaurantNearby(position){
@@ -113,9 +112,9 @@ $(document).ready(function(){
         // recherche du li clique a partir de sa classe panel-heading   
         $(document).on("click", ".panel-heading", function () {
                 liClique = this.id;   
-            });   
+            });
+        
 });
-
 
 // action submit modal1
 $('#formRating').submit(function(){
@@ -123,3 +122,4 @@ $('#formRating').submit(function(){
     $('#modal1').modal('hide');
     addnewRestaurantRatings(liClique); // Fonction qui ajout l'avis dans la <li> correspondante
 });
+

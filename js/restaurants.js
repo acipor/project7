@@ -1,19 +1,12 @@
-// Fonction création objet restaurant
-function createNewRestaurant(restaurantName, address, lat, long) {
+// Fonction  objet restaurant
+function Restaurant(restaurantName, address, lat, long) {
    this.restaurantName = restaurantName;
    this.address = address;
    this.lat = lat;
    this.long = long;
-}
 
-// Fonction création objet rating
-function createNewRating(stars, comment){
-    this.stars = stars;
-    this.comment = comment;
-}
-
-// affichage du restaurant 
-function addRestaurant(thatRestau, nbMarker){
+   // 
+   this.listRestaurant = function(nbMarker){
     var li = $('<li/>').addClass('row panel-heading').attr('id', nbMarker).appendTo($("ul"));
     // ajout informations du restaurant a li
     var listeColapse= "#collapse"+ nbMarker;
@@ -21,8 +14,8 @@ function addRestaurant(thatRestau, nbMarker){
     var leftCol = $('<div/>').addClass('col-xs-12').appendTo(liHeader);
     var leftRow = $('<div/>').addClass('row').appendTo(leftCol);
     $('<div/>').addClass('col-xs-1').text(nbMarker).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-8 h4').text(thatRestau.restaurantName).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-10').text(thatRestau.address).appendTo(leftRow);
+    $('<div/>').addClass('col-xs-8 h4').text(this.restaurantName).appendTo(leftRow);
+    $('<div/>').addClass('col-xs-10').text(this.address).appendTo(leftRow);
     $('<div/>').addClass('col-xs-10 restaurantAvgRating').appendTo(leftRow);
     var newRating = $('<div/>').addClass('col-xs-10 newRating').appendTo(leftRow); 
     var btnNewRating = $('<button/>').addClass('btn btn-info btn-md btnNewRating').attr('data-toggle','modal').attr('data-target','#modal1').appendTo(newRating); 
@@ -33,19 +26,26 @@ function addRestaurant(thatRestau, nbMarker){
     // ajout avis au collapse
     $('<div/>').addClass('row panel-body restaurantRatings').appendTo(liBody);
     // Ajout de l'image google street  au colapse
-    var restaurantLocation = "location="+thatRestau.lat+","+thatRestau.long;
+    var restaurantLocation = "location="+this.lat+","+this.long;
     var rightCol = $('<div/>').addClass('col-xs-12 colStreetview').appendTo(liBody); 
     var callImage = "https://maps.googleapis.com/maps/api/streetview?size=400x400&"+restaurantLocation+"&key=AIzaSyBj-wbljM14eCsEPBZe6A8Ca3ZzQGfTGxQ";
     $('<img>').addClass('streetview').attr('src', callImage).appendTo(rightCol);
-}
+    };
 
-// affichage avis du restaurant 
-function addRestaurantRatings(ratings, nthChildLi){
+}; // fin objet restaurant
+
+// Fonction  objet rating
+function Rating(stars, comment){
+    this.stars = stars;
+    this.comment = comment;
+
+    this.listRestaurantRatings =  function(nthChildLi){
     var rowRestaurantRatings = $('li:nth-child('+nthChildLi+')').find('.restaurantRatings');
     var colRestaurantRatings = $('<div>').addClass('col-xs-12 colRestaurantRatings').appendTo(rowRestaurantRatings);
-    $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: ratings.stars, readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
-    $('<span/>').addClass('commentsRestaurant').text(ratings.comment).appendTo(colRestaurantRatings);
-}
+    $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: this.stars, readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
+    $('<span/>').addClass('commentsRestaurant').text(this.comment).appendTo(colRestaurantRatings);
+        }
+} // fin objet rating
 
 // ajout des restaurants : results (avec la recherche de google Places) a la  position
 function addRestaurantWithSearch(position, results){
@@ -56,9 +56,9 @@ function addRestaurantWithSearch(position, results){
     var lont = results.geometry.location.lng(); // longitude
     var liIndex = $('li').length; // index de  li
     var nbMarker = (liIndex+1).toString(); // numéro du marker 
-    var restaurant = new createNewRestaurant(restaurantName, address, lat, lont); // On cré l'objet restaurant
+    var restaurant = new Restaurant(restaurantName, address, lat, lont); // On cré l'objet restaurant
     addMarker(position, nbMarker, restaurantName, liIndex); // appelle focntion ajout marker
-    addRestaurant(restaurant, nbMarker); // appel fonction ajout restaurant
+    restaurant.listRestaurant(nbMarker); // appel fonction ajout restaurant
     // ajout avis  restaurant et calcule de la note moyenne 
     if ($.type(results.reviews) === "array"){
         var sumRatings = 0;
@@ -66,9 +66,9 @@ function addRestaurantWithSearch(position, results){
             var stars = this.rating;
             var comment = this.text;
             sumRatings = sumRatings + stars;
-            var rating = new createNewRating(stars, comment);
-            addRestaurantRatings(rating, nbMarker);
-            ratings.push(rating);
+            var nwrating = new Rating(stars, comment);
+            nwrating.listRestaurantRatings(nbMarker);
+            ratings.push(nwrating);
         });
         var avgRatings = Math.round(2*sumRatings/ratings.length)/2;
         $('li').last().find('.restaurantAvgRating').starRating({ // Ajout de la note moyenne à ce restaurant
@@ -97,14 +97,14 @@ function addRestaurantWithSearch(position, results){
 function addnewRestaurantRatings(liIndex){
    var stars = Number($('#starsForm').starRating('getRating')); //  stars
     var comment = $('#newRatingForm').val(); // commentaire
-    var rating = new createNewRating(stars, comment); // creation de  avis
-    addRestaurantRatings(rating, (liIndex+1)); // ajout avis au restaurant 
+    var nwrating = new Rating(stars, comment); // creation de  avis
+    nwrating.listRestaurantRatings((liIndex+1)); // ajout avis au restaurant 
     $('#starsForm').starRating('setRating', 2.5); // initialisation par default variable
     $('#newRatingForm').val(''); // initialisation variable
    // recalcule de la  nouvelle moyenne du restaurant et mise à jour de starRating
     var sumRatings = 0; 
     $('li:nth-child('+(liIndex+1)+')').find('.ratingsRestaurant').each(function(){
-        sumRatings = sumRatings + Number($(this).starRating('getRating'));
+          sumRatings = sumRatings + Number($(this).starRating('getRating'));
     })
     // arrondi à 0.5 ()
     var avgRatings = Math.round(2*(sumRatings / $('li:nth-child('+(liIndex+1)+')').find('.ratingsRestaurant').length))/2;
