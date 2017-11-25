@@ -47,6 +47,7 @@ function Rating(stars, comment){
         }
 } // fin objet rating
 
+
 // ajout des restaurants : results (avec la recherche de google Places) a la  position
 function addRestaurantWithSearch(position, results){
     var ratings = []; //  tableau ratings
@@ -56,9 +57,9 @@ function addRestaurantWithSearch(position, results){
     var lont = results.geometry.location.lng(); // longitude
     var liIndex = $('li').length; // index de  li
     var nbMarker = (liIndex+1).toString(); // numéro du marker 
-    var restaurant = new Restaurant(restaurantName, address, lat, lont); // On cré l'objet restaurant
-    addMarker(position, nbMarker, restaurantName, liIndex); // appelle focntion ajout marker
-    restaurant.listRestaurant(nbMarker); // appel fonction ajout restaurant
+    var restaurant = new Restaurant(restaurantName, address, lat, lont); // création objet restaurant
+    addMarker(position, nbMarker, restaurantName, liIndex); //  ajout marker
+    restaurant.listRestaurant(nbMarker); // ajout restaurant
     // ajout avis  restaurant et calcule de la note moyenne 
     if ($.type(results.reviews) === "array"){
         var sumRatings = 0;

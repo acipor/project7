@@ -2,6 +2,32 @@
 var map;
 var markers = new Array();
 
+// affichage marker
+function addMarker(markerPosition, label, title, indexLi){
+    var marker = new google.maps.Marker({
+        position: markerPosition,
+        label: label, 
+        title: title,
+        map: map
+    });
+    markers.push(marker);  
+    //  ajout de l'evenement click sur le marker
+     marker.addListener('click', function(){
+       // on affiche le restaurant qui correspond au marqueur 
+       var liens=$('a');
+       liens[indexLi].click();
+      });
+} 
+
+// erreur
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+}  
+
 // initmap
 function initMap(){
     map = new google.maps.Map(document.getElementById('map'),
@@ -39,28 +65,7 @@ function initMap(){
         }   
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        var infoWindow = new google.maps.InfoWindow({map: map});
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-}   
+ 
 
-// affichage marker
-function addMarker(markerPosition, label, title, indexLi){
-    var marker = new google.maps.Marker({
-        position: markerPosition,
-        label: label, 
-        title: title,
-        map: map
-    });
-    markers.push(marker);  
-    //  ajout de l'evenement click sur le marker
-       marker.addListener('click', function(){
-       // on affiche le restaurant qui correspond au marqueur 
-       var liens=$('a');
-       liens[indexLi].click();
-             });
-} 
+
 
