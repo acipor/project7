@@ -1,3 +1,12 @@
+// ------ affichage de la note moyenne note:iniRa sur findli ----------------------------------------
+function listNoteMoy (findli,iniRa,reado,stsize) {
+          findli.starRating({ 
+                    initialRating: iniRa,
+                    readOnly: reado,
+                    starSize: stsize
+                      });  
+ }  
+ 
 //------------  Tri des restaurants en fonctions des stars --------------------------------
 var starSelect = {
 
@@ -57,11 +66,3 @@ var starSelect = {
 	}
 } // fin starselect
 
-// ------ affichage note:iniRa
-function listNoteMoy (findli,iniRa,reado,stsize) {
-          findli.starRating({ 
-                    initialRating: iniRa,
-                    readOnly: reado,
-                    starSize: stsize
-                      });  
- }  

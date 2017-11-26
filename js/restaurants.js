@@ -74,7 +74,7 @@ function addRestaurantWithSearch(position, results){
                 }); // fin each
                 // arrondi de la note moyenne à 0.5
                 var avgRatings = sumRatings/ratings.length;
-                avgRatings = Math.round(avgRatings); 
+                avgRatings =  Math.round(avgRatings);
                 // note:avgRatings
                 listNoteMoy (findLi,avgRatings,true,starRestaurantsSize);     
      }

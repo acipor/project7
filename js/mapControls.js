@@ -62,11 +62,9 @@ map.addListener('click', function(event){
         var liLength = $('li').length; 
         newRestaurant.listRestaurant((liLength+1)); // On ajoute le restaurant à la li
         addMarker(clickPosition, (liLength+1).toString(), restaurantName, liLength); // On ajoute le marker du restaurant
-        $('li').last().find('.restaurantAvgRating').starRating({ // Ajout de la note moyenne à ce restaurant
-            initialRating: 0,
-            readOnly: true,
-            starSize: starRestaurantsSize
-        });  
+        // Ajout de la note moyenne à ce restaurant
+        var thatli =  $('li').last().find('.restaurantAvgRating');
+        listNoteMoy (thatli,0,true,starRestaurantsSize); 
     }); 
 }); 
 
