@@ -1,11 +1,10 @@
-// Fonction  objet restaurant
+//------------  Fonction  objet restaurant ---------------------
 function Restaurant(restaurantName, address, lat, long) {
    this.restaurantName = restaurantName;
    this.address = address;
    this.lat = lat;
    this.long = long;
 
-   // 
    this.listRestaurant = function(nbMarker){
     var li = $('<li/>').addClass('row panel-heading').attr('id', nbMarker).appendTo($("ul"));
     // ajout informations du restaurant a li
@@ -32,9 +31,10 @@ function Restaurant(restaurantName, address, lat, long) {
     $('<img>').addClass('streetview').attr('src', callImage).appendTo(rightCol);
     };
 
-}; // fin objet restaurant
 
-// Fonction  objet rating
+} // fin objet restaurant
+
+//-----------  Fonction  objet rating ------------------------
 function Rating(stars, comment){
     this.stars = stars;
     this.comment = comment;
@@ -48,7 +48,7 @@ function Rating(stars, comment){
 } // fin objet rating
 
 
-// ajout des restaurants : results (avec la recherche de google Places) a la  position
+//-----------  ajout des restaurants : results (avec la recherche de google Places) a la  position ----------------------------
 function addRestaurantWithSearch(position, results){
     var ratings = []; //  tableau ratings
     var restaurantName = results.name; 
@@ -61,40 +61,38 @@ function addRestaurantWithSearch(position, results){
     addMarker(position, nbMarker, restaurantName, liIndex); //  ajout marker
     restaurant.listRestaurant(nbMarker); // ajout restaurant
     // ajout avis  restaurant et calcule de la note moyenne 
-    if ($.type(results.reviews) === "array"){
-        var sumRatings = 0;
-        $.each(results.reviews, function(){
-            var stars = this.rating;
-            var comment = this.text;
-            sumRatings = sumRatings + stars;
-            var nwrating = new Rating(stars, comment);
-            nwrating.listRestaurantRatings(nbMarker);
-            ratings.push(nwrating);
-        });
-        var avgRatings = Math.round(2*sumRatings/ratings.length)/2;
-        $('li').last().find('.restaurantAvgRating').starRating({ // Ajout de la note moyenne à ce restaurant
-            initialRating: avgRatings,
-            readOnly: true,
-            starSize: starRestaurantsSize
-        });        
-    } else { // sinon  initialRating=0
-        $('li').last().find('.restaurantAvgRating').starRating({ 
-            initialRating: 0,
-            readOnly: true,
-            starSize: starRestaurantsSize
-        });        
+   var findLi = $('li').last().find('.restaurantAvgRating'); 
+   if ($.type(results.reviews) === "array"){ // si resultat 
+                var sumRatings = 0;
+                $.each(results.reviews, function(){
+                    var stars = this.rating;
+                    var comment = this.text;
+                    sumRatings = sumRatings + stars;
+                    var nwrating = new Rating(stars, comment);
+                    nwrating.listRestaurantRatings(nbMarker);
+                    ratings.push(nwrating);
+                }); // fin each
+                // arrondi de la note moyenne à 0.5
+                var avgRatings = sumRatings/ratings.length;
+                avgRatings = Math.round(avgRatings); 
+                // note:avgRatings
+                listNoteMoy (findLi,avgRatings,true,starRestaurantsSize);     
+     }
+     else { 
+            // sinon note:0
+            listNoteMoy (findLi,0,true,starRestaurantsSize);       
     }
     // Si le restaurant n'est pas dans la fourchette de la recherche on le cache
     var minStar = Number($('#starMin').starRating('getRating')); // Note minimale
     var maxStar = Number($('#starMax').starRating('getRating')); // Note maximale
     var thatStartRating =Number( $('li').last().find('.restaurantAvgRating').starRating('getRating'));
-    if ((thatStartRating<minStar || thatStartRating>maxStar)){ // Si le restaurant est en dehors de la fourchette
+    if ((thatStartRating<minStar || thatStartRating>maxStar)){ // Si le restaurant est en dehors de minstar et maxstar
         $('li').last().addClass('hide'); // on cache li
         markers[liIndex].setVisible(false); // on cache le marker
     } 
 }
 
-// ajout un avis à li
+//--------------  ajout un avis à li ---------------------------------------
 function addnewRestaurantRatings(liIndex){
    var stars = Number($('#starsForm').starRating('getRating')); //  stars
     var comment = $('#newRatingForm').val(); // commentaire
@@ -107,8 +105,9 @@ function addnewRestaurantRatings(liIndex){
     $('li:nth-child('+(liIndex+1)+')').find('.ratingsRestaurant').each(function(){
           sumRatings = sumRatings + Number($(this).starRating('getRating'));
     })
-    // arrondi à 0.5 ()
-    var avgRatings = Math.round(2*(sumRatings / $('li:nth-child('+(liIndex+1)+')').find('.ratingsRestaurant').length))/2;
+    // arrondi à 0.5 
+    var avgRatings = (sumRatings / $('li:nth-child('+(liIndex+1)+')').find('.ratingsRestaurant').length);
+    avgRatings = Math.round(avgRatings);
     $('li:nth-child('+(liIndex+1)+')').find('.restaurantAvgRating').starRating('setRating', avgRatings);
     // vérification si restaurant est dans la recherche
     var minStar = Number($('#starMin').starRating('getRating')); // Note minimale

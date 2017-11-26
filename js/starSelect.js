@@ -1,10 +1,11 @@
+//------------  Tri des restaurants en fonctions des stars --------------------------------
 var starSelect = {
-	// Tri des restaurants en fonctions des notes
+
 	init: function(){
 		var starSelectRow = $('<div/>').addClass('row').appendTo($('#starSelection')); 
 		$('<div/>').addClass('col-xs-12 center-align').text(textSelect).addClass('h3').appendTo(starSelectRow);
 		//  starMin note minimum
-		$('<div/>').addClass('col-xs-6  center-align').attr('id', 'starMin').starRating({
+		 $('<div/>').addClass('col-xs-6  center-align').attr('id', 'starMin').starRating({
 			initialRating: 0,
 			starSize: starSelectSize, 
 			disableAfterRate: false,
@@ -14,6 +15,7 @@ var starSelect = {
 				}
 			}
 		}).appendTo(starSelectRow);
+		
 
 		// starMax note maximale
 		$('<div/>').addClass('col-xs-6 center-align').attr('id', 'starMax').starRating({
@@ -53,4 +55,13 @@ var starSelect = {
 			});
 		});
 	}
-}
+} // fin starselect
+
+// ------ affichage note:iniRa
+function listNoteMoy (findli,iniRa,reado,stsize) {
+          findli.starRating({ 
+                    initialRating: iniRa,
+                    readOnly: reado,
+                    starSize: stsize
+                      });  
+ }  
