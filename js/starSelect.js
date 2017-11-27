@@ -1,7 +1,7 @@
-// ------ affichage de la note moyenne note:iniRa sur findli ----------------------------------------
-function listNoteMoy (findli,iniRa,reado,stsize) {
+// ------ affichage de la note moyenne note:initialRa sur findli ----------------------------------------
+function listNoteMoy (findli,initialRa,reado,stsize) {
           findli.starRating({ 
-                    initialRating: iniRa,
+                    initialRating: initialRa,
                     readOnly: reado,
                     starSize: stsize
                       });  

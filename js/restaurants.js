@@ -13,9 +13,9 @@ function Restaurant(restaurantName, address, lat, long) {
     var leftCol = $('<div/>').addClass('col-xs-12').appendTo(liHeader);
     var leftRow = $('<div/>').addClass('row').appendTo(leftCol);
     $('<div/>').addClass('col-xs-1').text(nbMarker).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-8 h4').text(this.restaurantName).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-10').text(this.address).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-10 restaurantAvgRating').appendTo(leftRow);
+    $('<div/>').addClass('col-xs-8 center-align h4').text(this.restaurantName).appendTo(leftRow);
+    $('<div/>').addClass('col-xs-10 center-align').text(this.address).appendTo(leftRow);
+    $('<div/>').addClass('col-xs-10 center-align restaurantAvgRating').appendTo(leftRow);
     var newRating = $('<div/>').addClass('col-xs-10 newRating').appendTo(leftRow); 
     var btnNewRating = $('<button/>').addClass('btn btn-info btn-md btnNewRating').attr('data-toggle','modal').attr('data-target','#modal1').appendTo(newRating); 
     $('<i/>').text('ajouter avis').appendTo(btnNewRating);

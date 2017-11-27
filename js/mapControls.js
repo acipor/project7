@@ -31,8 +31,8 @@ map.addListener('bounds_changed', function(){
 
 // ajouter un  restaurant sur clic sur la map
 map.addListener('click', function(event){
-    // On unbind le submit et on le relance pour éviter l'ajoute de plusieurs restaurants après plusieurs clicks
-    $('#formRestaurant').unbind('submit').submit();
+    // unbind le click et on le relance pour éviter l'ajoute de plusieurs restaurants après plusieurs clicks
+    $('#btnResto').unbind('click').click();
     // On remet les valeurs du modal à 0
     $('#newRestaurantName').val(''); 
     $('#newRestaurantAddress').val('');
@@ -50,8 +50,8 @@ map.addListener('click', function(event){
         window.alert('Geocoder failed due to: ' + status);
         }
     }); 
-    // action  submit modal2
-    $('#formRestaurant').submit(function(){
+    // action click sur btnResto
+    $('#btnResto').click(function() {
         $('#modal2').modal('hide'); // On ferme le modal
         var restaurantName = $('#newRestaurantName').val(); 
         var address = $('#newRestaurantAddress').val(); 
@@ -114,10 +114,9 @@ $(document).ready(function(){
         
 });
 
-// action submit modal1
-$('#formRating').submit(function(){
-    liClique=liClique-1;
-    $('#modal1').modal('hide');
-    addnewRestaurantRatings(liClique); // Fonction qui ajout l'avis dans la <li> correspondante
+// action click sur btnAvis
+$('#btnAvis').click(function() {
+      liClique=liClique-1;
+        $('#modal1').modal('hide');
+        addnewRestaurantRatings(liClique); // Fonction qui ajout l'avis dans la <li> correspondante
 });
-
