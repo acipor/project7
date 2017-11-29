@@ -31,7 +31,7 @@ map.addListener('bounds_changed', function(){
 
 // ajouter un  restaurant sur clic sur la map
 map.addListener('click', function(event){
-    // unbind le click et on le relance pour éviter l'ajoute de plusieurs restaurants après plusieurs clicks
+    // unbind le click et on le relance pour éviter l'ajout de plusieurs restaurants après plusieurs clicks
     $('#btnResto').unbind('click').click();
     // On remet les valeurs du modal à 0
     $('#newRestaurantName').val(''); 
@@ -58,11 +58,12 @@ map.addListener('click', function(event){
         var lat = clickPosition.lat(); // Lat du click
         var long = clickPosition.lng(); // Lng du click
         // création du restaurant 
-        var newRestaurant = new Restaurant(restaurantName, address, lat, long);
-        var liLength = $('li').length; 
-        newRestaurant.listRestaurant((liLength+1)); // On ajoute le restaurant à la li
-        addMarker(clickPosition, (liLength+1).toString(), restaurantName, liLength); // On ajoute le marker du restaurant
-        // Ajout de la note moyenne à ce restaurant
+        var liLength = restaurants.length;
+        var newRestaurant = new Restaurant(restaurantName, address, lat, long, (liLength+1).toString(), map); 
+        restaurants.push(newRestaurant); // ajout restaurant
+        newRestaurant.listRestaurant(liLength+1); // affiche restaurant
+        markers.push(newRestaurant.marker); // ajout marker
+       // Ajout de la note moyenne à ce restaurant
         var thatli =  $('li').last().find('.restaurantAvgRating');
         listNoteMoy (thatli,0,true,starRestaurantsSize); 
     }); 

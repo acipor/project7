@@ -1,37 +1,48 @@
 //------------  Fonction  objet restaurant ---------------------
-function Restaurant(restaurantName, address, lat, long) {
+function Restaurant(restaurantName, address, lat, long, nbMarker, map) {
    this.restaurantName = restaurantName;
    this.address = address;
    this.lat = lat;
    this.long = long;
+   this.nbMarker = nbMarker; 
 
-   this.listRestaurant = function(nbMarker){
-    var li = $('<li/>').addClass('row panel-heading').attr('id', nbMarker).appendTo($("ul"));
-    // ajout informations du restaurant a li
-    var listeColapse= "#collapse"+ nbMarker;
-    var liHeader = $('<a/>').attr('href',listeColapse).addClass('col-xs-12 btn btn-default').attr('data-toggle','collapse').attr('data-parent','#accordion').appendTo(li); 
-    var leftCol = $('<div/>').addClass('col-xs-12').appendTo(liHeader);
-    var leftRow = $('<div/>').addClass('row').appendTo(leftCol);
-    $('<div/>').addClass('col-xs-1').text(nbMarker).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-8 center-align h4').text(this.restaurantName).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-10 center-align').text(this.address).appendTo(leftRow);
-    $('<div/>').addClass('col-xs-10 center-align restaurantAvgRating').appendTo(leftRow);
-    var newRating = $('<div/>').addClass('col-xs-10 newRating').appendTo(leftRow); 
-    var btnNewRating = $('<button/>').addClass('btn btn-info btn-md btnNewRating').attr('data-toggle','modal').attr('data-target','#modal1').appendTo(newRating); 
-    $('<i/>').text('ajouter avis').appendTo(btnNewRating);
-    // collapse
-    var idAvis= "collapse"+ nbMarker;
-    var liBody = $('<div/>').attr('id',idAvis).addClass('col-xs-12 panel collapse').appendTo(li); 
-    // ajout avis au collapse
-    $('<div/>').addClass('row panel-body restaurantRatings').appendTo(liBody);
-    // Ajout de l'image google street  au colapse
-    var restaurantLocation = "location="+this.lat+","+this.long;
-    var rightCol = $('<div/>').addClass('col-xs-12 colStreetview').appendTo(liBody); 
-    var callImage = "https://maps.googleapis.com/maps/api/streetview?size=400x400&"+restaurantLocation+"&key=AIzaSyBj-wbljM14eCsEPBZe6A8Ca3ZzQGfTGxQ";
-    $('<img>').addClass('streetview').attr('src', callImage).appendTo(rightCol);
+   this.marker = new google.maps.Marker({
+            position:{lat:lat, lng:long}, 
+            label: nbMarker, 
+            title: restaurantName,
+            map: map
+    }); 
+
+    google.maps.event.addListener(this.marker, "click", function() { 
+            var liens=$('a');
+            liens[this.label-1].click();
+    }); 
+
+    this.listRestaurant = function(nbMarker){
+        var li = $('<li/>').addClass('row panel-heading').attr('id', nbMarker).appendTo($("ul"));
+        // ajout informations du restaurant a li
+        var listeColapse= "#collapse"+ nbMarker;
+        var liHeader = $('<a/>').attr('href',listeColapse).addClass('col-xs-12 btn btn-default').attr('data-toggle','collapse').attr('data-parent','#accordion').appendTo(li); 
+        var leftCol = $('<div/>').addClass('col-xs-12').appendTo(liHeader);
+        var leftRow = $('<div/>').addClass('row').appendTo(leftCol);
+        $('<div/>').addClass('col-xs-1').text(nbMarker).appendTo(leftRow);
+        $('<div/>').addClass('col-xs-8 center-align h4').text(this.restaurantName).appendTo(leftRow);
+        $('<div/>').addClass('col-xs-10 center-align').text(this.address).appendTo(leftRow);
+        $('<div/>').addClass('col-xs-10 center-align restaurantAvgRating').appendTo(leftRow);
+        var newRating = $('<div/>').addClass('col-xs-10 newRating').appendTo(leftRow); 
+        var btnNewRating = $('<button/>').addClass('btn btn-info btn-md btnNewRating').attr('data-toggle','modal').attr('data-target','#modal1').appendTo(newRating); 
+        $('<i/>').text('ajouter avis').appendTo(btnNewRating);
+        // collapse
+        var idAvis= "collapse"+ nbMarker;
+        var liBody = $('<div/>').attr('id',idAvis).addClass('col-xs-12 panel collapse').appendTo(li); 
+        // ajout avis au collapse
+        $('<div/>').addClass('row panel-body restaurantRatings').appendTo(liBody);
+        // Ajout de l'image google street  au colapse
+        var restaurantLocation = "location="+this.lat+","+this.long;
+        var rightCol = $('<div/>').addClass('col-xs-12 colStreetview').appendTo(liBody); 
+        var callImage = "https://maps.googleapis.com/maps/api/streetview?size=400x400&"+restaurantLocation+"&key=AIzaSyBj-wbljM14eCsEPBZe6A8Ca3ZzQGfTGxQ";
+        $('<img>').addClass('streetview').attr('src', callImage).appendTo(rightCol);
     };
-
-
 } // fin objet restaurant
 
 //-----------  Fonction  objet rating ------------------------
@@ -45,8 +56,8 @@ function Rating(stars, comment){
     $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: this.stars, readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
     $('<span/>').addClass('commentsRestaurant').text(this.comment).appendTo(colRestaurantRatings);
         }
-} // fin objet rating
 
+} // fin objet rating
 
 //-----------  ajout des restaurants : results (avec la recherche de google Places) a la  position ----------------------------
 function addRestaurantWithSearch(position, results){
@@ -57,9 +68,11 @@ function addRestaurantWithSearch(position, results){
     var lont = results.geometry.location.lng(); // longitude
     var liIndex = $('li').length; // index de  li
     var nbMarker = (liIndex+1).toString(); // numéro du marker 
-    var restaurant = new Restaurant(restaurantName, address, lat, lont); // création objet restaurant
-    addMarker(position, nbMarker, restaurantName, liIndex); //  ajout marker
-    restaurant.listRestaurant(nbMarker); // ajout restaurant
+    var newRestaurant = new Restaurant(restaurantName, address, lat, lont, nbMarker, map); 
+    restaurants.push(newRestaurant); // ajout restaurant
+    markers.push(newRestaurant.marker); // ajout marker
+    newRestaurant.listRestaurant(nbMarker); // affiche restaurant
+
     // ajout avis  restaurant et calcule de la note moyenne 
    var findLi = $('li').last().find('.restaurantAvgRating'); 
    if ($.type(results.reviews) === "array"){ // si resultat 
