@@ -26,6 +26,8 @@ function Restaurant(restaurantName, address, lat, long, nbMarker, map) {
         return rating;
     }
 
+    this.noteMoyRatig = 0;
+
     this.listRestaurantRatings =  function(pos){ // affichage des ratings 
         for (var i = 0; i < this.listeRatings.length ; i++) {
             var rowRestaurantRatings = $('li:nth-child('+ pos +')').find('.restaurantRatings');
@@ -75,8 +77,7 @@ function addRestaurantWithSearch(position, results){
     var liIndex = $('li').length; // index de  li
     var nbMarker = (liIndex+1).toString(); // numéro du marker 
     var newRestaurant = new Restaurant(restaurantName, address, lat, lont, nbMarker, map); 
-    restaurants.push(newRestaurant); // ajout restaurant
-    markers.push(newRestaurant.marker); // ajout marker
+   
     newRestaurant.listRestaurant(nbMarker); // affiche restaurant
 
     // ajout avis  restaurant et calcule de la note moyenne 
@@ -95,14 +96,19 @@ function addRestaurantWithSearch(position, results){
                 // arrondi de la note moyenne à 0.5
                 var avgRatings = sumRatings/newRestaurant.listeRatings.length;
                 avgRatings =  Math.round(avgRatings);
+                newRestaurant.noteMoyRatig = avgRatings;
                 // note:avgRatings
-                listNoteMoy (findLi,avgRatings,true,starRestaurantsSize);     
+                listNoteMoy (findLi,newRestaurant.noteMoyRatig,true,starRestaurantsSize);     
      }
      else { 
             // sinon note:0
             alert("erreur type reviews");
-            listNoteMoy (findLi,0,true,starRestaurantsSize);       
+            newRestaurant.noteMoyRatig = 0;
+            listNoteMoy (findLi,newRestaurant.noteMoyRatig,true,starRestaurantsSize);       
     }
+    restaurants.push(newRestaurant); // ajout restaurant
+    markers.push(newRestaurant.marker); // ajout marker
+
     // Si le restaurant n'est pas dans la fourchette de la recherche on le cache
     var minStar = Number($('#starMin').starRating('getRating')); // Note minimale
     var maxStar = Number($('#starMax').starRating('getRating')); // Note maximale

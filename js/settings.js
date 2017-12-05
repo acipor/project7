@@ -1,4 +1,7 @@
 // variables générales
+var map;
+var markers = new Array();
+var restaurants =  new Array ();
 var defaultPosition = {lat: 48.8737815, lng: 2.3501660};
 var defaultZoom = 16; // default zoom
 var infoWindow;

@@ -1,4 +1,4 @@
-// ------ affichage de la note moyenne note:initialRa sur findli ----------------------------------------
+// ------ affichage de la note moyenne note:initialRa dans la li=findli ----------------------------------------
 function listNoteMoy (findli,initialRa,reado,stsize) {
           findli.starRating({ 
                     initialRating: initialRa,

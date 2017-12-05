@@ -1,8 +1,3 @@
-// variables
-var map;
-var markers = new Array();
-var restaurants =  new Array ();
-
 // apelle de star
 starSelect.init(); 
 
@@ -23,19 +18,20 @@ $.getJSON(jsonFile, function(result){
              sumRatings = this.stars + sumRatings; // On ajout les notes à sumRatings
             });
         // Calcul de la note moyenne
-            var avgRatings = sumRatings/this.ratings.length; 
-
+            var avgRatings = sumRatings/this.ratings.length;
+            newRestaurant.noteMoyRatig = avgRatings;
+        // ajout aux tableaux
           restaurants.push(newRestaurant); 
           markers.push(newRestaurant.marker);   
 
           // affichage du restaurant
             newRestaurant.listRestaurant(nbMarker); 
-        // affichage des ratings du restaurant
+          // affichage des ratings du restaurant
              newRestaurant.listRestaurantRatings(nbMarker);
         
-        // Ajout de la note moyenne à ce restaurant
+         // Ajout de la note moyenne à ce restaurant
             var thatli =  $('li').last().find('.restaurantAvgRating');
-            listNoteMoy (thatli,avgRatings,true,starRestaurantsSize); 
+            listNoteMoy (thatli,newRestaurant.noteMoyRatig,true,starRestaurantsSize); 
 
         
       }); // fin each
