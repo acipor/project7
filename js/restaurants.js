@@ -28,9 +28,9 @@ function Restaurant(restaurantName, address, lat, long, nbMarker, map) {
 
     this.noteMoyRatig = 0;
 
-    this.listRestaurantRatings =  function(pos){ // affichage des ratings 
-        for (var i = 0; i < this.listeRatings.length ; i++) {
-            var rowRestaurantRatings = $('li:nth-child('+ pos +')').find('.restaurantRatings');
+    this.listRestaurantRatings =  function(pos){ // affichage des ratings de la li a index pos
+       var rowRestaurantRatings = $('li:nth-child('+ pos +')').find('.restaurantRatings');
+       for (var i = 0; i < this.listeRatings.length ; i++) {
             var colRestaurantRatings = $('<div>').addClass('col-xs-12 colRestaurantRatings').appendTo(rowRestaurantRatings);
             $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: this.listeRatings[i]["stars"], readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
             $('<span/>').addClass('commentsRestaurant').text(this.listeRatings[i]["comment"]).appendTo(colRestaurantRatings);
@@ -102,7 +102,7 @@ function addRestaurantWithSearch(position, results){
      }
      else { 
             // sinon note:0
-            alert("erreur type reviews");
+            console.log("erreur type reviews");
             newRestaurant.noteMoyRatig = 0;
             listNoteMoy (findLi,newRestaurant.noteMoyRatig,true,starRestaurantsSize);       
     }
@@ -121,12 +121,17 @@ function addRestaurantWithSearch(position, results){
 
 //--------------  ajout un avis à li ---------------------------------------
 function addnewRestaurantRatings(liIndex){
-    var stars = Number($('#starsForm').starRating('getRating')); //  stars
-    var comment = $('#newRatingForm').val(); // commentaire
-    slRestaurant = restaurants[liIndex+1]; // restaurant auquel il faut ajouter avis 
-    var nwrating = slRestaurant.addRating(stars,comment); // ajout avis
-    // affichage des ratings du restaurant
-    slRestaurant.listRestaurantRatings(liIndex+1);
+    var newStars = Number($('#starsForm').starRating('getRating')); //  stars
+    var newComment = $('#newRatingForm').val(); // commentaire
+    slRestaurant = restaurants[liIndex]; // restaurant auquel il faut ajouter avis 
+    var nwrating = slRestaurant.addRating(newStars,newComment); // ajout avis
+    // affichage du rating du restaurant dans la li coresspondante
+    var rowRestaurantRatings = $('li:nth-child('+ (liIndex+1) +')').find('.restaurantRatings');
+    var colRestaurantRatings = $('<div>').addClass('col-xs-12 colRestaurantRatings').appendTo(rowRestaurantRatings);
+    $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: newStars, readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
+    $('<span/>').addClass('commentsRestaurant').text(newComment).appendTo(colRestaurantRatings);
+       
+
     // initialisation des variables du formulaires
     $('#starsForm').starRating('setRating', 2.5); 
     $('#newRatingForm').val(''); 
@@ -144,7 +149,7 @@ function addnewRestaurantRatings(liIndex){
     var maxStar = Number($('#starMax').starRating('getRating')); // Note maximale
     if ((avgRatings<minStar || avgRatings>maxStar)){ // Si le restaurant est en dehors de la fourchette
         $('li:nth-child('+(liIndex+1)+')').addClass('hide'); // on cache li
-        markers[liIndex].setVisible(false); // on cache le marker
+        markers[liIndex+1].setVisible(false); // on cache le marker
     }
 }
 
