@@ -53,15 +53,13 @@ map.addListener('click', function(event){
     // action click sur btnResto
     $('#btnResto').click(function() {
         $('#modal2').modal('hide'); // On ferme le modal
-        var restaurantName = $('#newRestaurantName').val(); 
-        var address = $('#newRestaurantAddress').val(); 
-        var lat = clickPosition.lat(); // Lat du click
-        var long = clickPosition.lng(); // Lng du click
         // création du restaurant 
         var liLength = restaurants.length;
-        var newRestaurant = new Restaurant(restaurantName, address, lat, long, (liLength+1).toString(), map); 
+        var nbMarker = (liLength+1).toString();
+        var newRestaurant = factory.createRestaurantFromForm($('#newRestaurantName').val(), $('#newRestaurantAddress').val() , clickPosition.lat(), clickPosition.lng(), nbMarker, map); 
+        newRestaurant.noteMoyRatin = 0;
         restaurants.push(newRestaurant); // ajout restaurant
-        newRestaurant.listRestaurant(liLength+1); // affiche restaurant
+        newRestaurant.listRestaurant(liLength+1); // affichage du restaurant
         markers.push(newRestaurant.marker); // ajout marker
        // Ajout de la note moyenne à ce restaurant
         var thatli =  $('li').last().find('.restaurantAvgRating');
@@ -112,7 +110,6 @@ $(document).ready(function(){
         $(document).on("click", ".panel-heading", function () {
                 liClique = this.id;   
             });
-        
 });
 
 // action click sur btnAvis

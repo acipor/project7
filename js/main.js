@@ -15,7 +15,7 @@ $.getJSON(jsonFile, function(result){
             var sumRatings = 0; 
             $.each(this.ratings, function(){ // Pour chaque objet ratings de chaque data 
                var nwrating = newRestaurant.addRating(this.stars,this.comment);
-             sumRatings = this.stars + sumRatings; // On ajout les notes à sumRatings
+               sumRatings = this.stars + sumRatings; // On ajout les notes à sumRatings
             });
         // Calcul de la note moyenne
             var avgRatings = sumRatings/this.ratings.length;
@@ -28,7 +28,6 @@ $.getJSON(jsonFile, function(result){
             newRestaurant.listRestaurant(nbMarker); 
           // affichage des ratings du restaurant
              newRestaurant.listRestaurantRatings(nbMarker);
-        
          // Ajout de la note moyenne à ce restaurant
             var thatli =  $('li').last().find('.restaurantAvgRating');
             listNoteMoy (thatli,newRestaurant.noteMoyRatig,true,starRestaurantsSize); 
