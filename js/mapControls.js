@@ -16,7 +16,7 @@ map.addListener('dragend', function(){
    addRestaurantNearby(position); // appel fonction 
 });
 
-// mise a jour des marker et restaurants quand limites de map changent
+// mise a jour des marker et restaurants quand limites de la map changent
 map.addListener('bounds_changed', function(){ 
     $.each(markers, function (index, marker){ // 
         if(map.getBounds().contains(marker.getPosition()) && marker.getVisible()){ 
@@ -61,9 +61,11 @@ map.addListener('click', function(event){
         restaurants.push(newRestaurant); // ajout restaurant
         newRestaurant.listRestaurant(liLength+1); // affichage du restaurant
         markers.push(newRestaurant.marker); // ajout marker
-       // Ajout de la note moyenne à ce restaurant
+        // Ajout de la note moyenne à ce restaurant
         var thatli =  $('li').last().find('.restaurantAvgRating');
         listNoteMoy (thatli,0,true,starRestaurantsSize); 
+        // test si le restaurant newRestaurant a une note  starMin et starMax
+         newRestaurant.listRestaurantMinMax(Number($('#starMin').starRating('getRating')),Number($('#starMax').starRating('getRating')));
     }); 
 }); 
 

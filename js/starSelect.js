@@ -7,7 +7,7 @@ function listNoteMoy (findli,initialRa,reado,stsize) {
                       });  
  }  
  
-//------------  Tri des restaurants en fonctions des stars --------------------------------
+//------------  Tri des restaurants en fonctions des etoiles --------------------------------
 var starSelect = {
 
 	init: function(){
