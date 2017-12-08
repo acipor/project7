@@ -158,7 +158,6 @@ function addnewRestaurantRatings(liIndex){
     $('#newRatingForm').val(''); 
     //  calcule de la somme des avis 
     var sumRatings = slRestaurant.calcSumRatings();
-    console.log("sum=" + sumRatings) ;      
     // arrondi à 0.5 
     var avgRatings = sumRatings /slRestaurant.listeRatings.length;
     avgRatings = Math.round(avgRatings);
