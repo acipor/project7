@@ -134,7 +134,7 @@ function addRestaurantWithSearch(position, results){
                 // affichage des ratings 
                 newRestaurant.listRestaurantRatings(nbMarker);
                 // calcul de la note moyenne
-                var avgRatings = sumRatings/newRestaurant.listeRatings.length;
+                var avgRatings = Math.round(sumRatings/newRestaurant.listeRatings.length);
                 newRestaurant.noteMoyRatig = avgRatings;
                 //  affichage note moyenne:avgRatings
                 var thatli =  $('li').last().find('.restaurantAvgRating');
@@ -163,12 +163,12 @@ function addnewRestaurantRatings(liIndex){
     $('<div/>').addClass('ratingsRestaurant').starRating({initialRating: newStars, readOnly: true, starSize: starRatingsSize}).appendTo(colRestaurantRatings);
     $('<span/>').addClass('commentsRestaurant').text(newComment).appendTo(colRestaurantRatings);
     // initialisation des variables du formulaire
-    $('#starsForm').starRating('setRating', 2.5); 
+    $('#starsForm').starRating('setRating', 3); 
     $('#newRatingForm').val(''); 
     //  calcule de la somme des avis 
     var sumRatings = slRestaurant.calcSumRatings();
     // recalcul de la note moyenne 
-    var avgRatings = sumRatings /slRestaurant.listeRatings.length;
+    var avgRatings = Math.round(sumRatings /slRestaurant.listeRatings.length);
     slRestaurant.noteMoyRatig = avgRatings;
     // afichage de la note moyenne
     $('li:nth-child('+(liIndex+1)+')').find('.restaurantAvgRating').starRating('setRating', avgRatings);
