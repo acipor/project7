@@ -3,7 +3,7 @@ starSelect.init();
 
 // lecture du fichier de donnes fourni
 $.getJSON(jsonFile, function(result){ 
-      $.each(result, function(index){ 
+      $.each(result, function(index){ // lecture du fichier
             var nbMarker = (index+1).toString(); 
             var restaurantName = this.restaurantName;
             var address = this.address;
@@ -20,7 +20,7 @@ $.getJSON(jsonFile, function(result){
             // Calcul de la note moyenne
             var avgRatings = sumRatings/this.ratings.length;
             newRestaurant.noteMoyRatig = avgRatings;
-            // ajout aux arrays
+            // ajout au array
             restaurants.push(newRestaurant); 
             // affichage du restaurant
             newRestaurant.listRestaurant(nbMarker); 

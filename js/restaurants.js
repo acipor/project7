@@ -84,14 +84,14 @@ function FactoryRestaurant() {
             $('<img>').addClass('streetview').attr('src', callImage).appendTo(rightCol);
         };
 
-        this.showRestaurant =  function(index){ // affiche le marker et le restaurant coresspondant 
+        this.showRestaurant =  function(indexLi){ // affiche le marker et la li restaurant corresspondant à indexLi
             this.marker.getVisible(true); 
-            $('li:nth-child('+(index+1)+')').removeClass('hide'); 
+            $('li:nth-child('+(indexLi+1)+')').removeClass('hide'); 
         }
 
-        this.hideRestaurant =  function(index){ // cacher le marker et le restaurant 
+        this.hideRestaurant =  function(indexLi){ // cache le marker et la li 
             this.marker.getVisible(false); 
-            $('li:nth-child('+(index+1)+')').addClass('hide');  
+            $('li:nth-child('+(indexLi+1)+')').addClass('hide');  
         }
 
     } // restaurant
@@ -119,7 +119,7 @@ function addRestaurantWithSearch(position, results){
     var ratings = []; //  tableau ratings
     var liIndex = $('li').length; // index de  li
     var nbMarker = (liIndex+1).toString(); // numéro du marker 
-    var newRestaurant = factory.createRestaurantFromSearch(results,nbMarker); // appel de factory et création du restaurant
+    var newRestaurant = factory.createRestaurantFromSearch(results,nbMarker); // création du restaurant
     newRestaurant.listRestaurant(nbMarker); // affiche restaurant
     // ajout avis  restaurant et calcule de la note moyenne 
     if ($.type(results.reviews) === "array"){ // si resultat 
@@ -145,10 +145,10 @@ function addRestaurantWithSearch(position, results){
             // sinon note:0
             newRestaurant.noteMoyRatig = 0;
             var findLi =  $('li:nth-child('+newRestaurant.nbMarker+')').find('.restaurantAvgRating'); 
-            listNoteMoy (findLi,newRestaurant.noteMoyRatig,true,starRestaurantsSize);       
+            listNoteMoy (findLi,0,true,starRestaurantsSize);       
     }
     restaurants.push(newRestaurant); // ajout restaurant
-    // test si le restaurant newRestaurant a une note  starMin et starMax
+    // test si le restaurant newRestaurant a une note  entre starMin et starMax
     newRestaurant.listRestaurantMinMax(Number($('#starMin').starRating('getRating')),Number($('#starMax').starRating('getRating')));
 }
 

@@ -1,4 +1,4 @@
-// ------ affichage de la note moyenne note:initialRa dans la li=findli ----------------------------------------
+// ------ affichage des etoiles de la note moyenne note:initialRa dans la li=findli ----------------------------------------
 function listNoteMoy (findli,initialRa,reado,stsize) {
           findli.starRating({ 
                     initialRating: initialRa,
@@ -7,7 +7,7 @@ function listNoteMoy (findli,initialRa,reado,stsize) {
                       });  
  }  
  
-//------------  Tri des restaurants en fonctions des etoiles --------------------------------
+//------------  Tri des restaurants en fonctions des etoiles min et max--------------------------------
 var starSelect = {
 
 	init: function(){
@@ -42,24 +42,23 @@ var starSelect = {
 		var divBtnStarSelect = $('<div/>').addClass('col-xs-12 divBtnStarSelect center-align').appendTo(starSelectRow);
 		$('<button/>').addClass('btn btn-success btn-lg').attr('id', "btnStarSelect").text(textBtnSelect).appendTo(divBtnStarSelect);
 
-		// event sur clique  bouton
+		// event sur clique  bouton classer
 		$('#btnStarSelect').on('click', function(){
 			var minStar = Number($('#starMin').starRating('getRating')); // Note min
 			var maxStar = Number($('#starMax').starRating('getRating')); // Note max
 			$('li').each(function(index){ 
-				resto=restaurants[index];
-				var thatStartRating = resto.noteMoyRatig;
+				var thatStartRating = restaurants[index].noteMoyRatig; // note du restaurant
 				if ((thatStartRating<minStar || thatStartRating>maxStar)){ // Si  li n'est pas dans note
 						$(this).addClass('hide'); // on cache li
-			    		resto.marker.setVisible(false); // on cache marker 
+			    		restaurants[index].marker.setVisible(false); // on cache marker 
 				} else{
 					// Sinon on affiche si dans les limites
-					if($(this).hasClass('hide') && map.getBounds().contains(resto.marker.getPosition())){
+					if($(this).hasClass('hide') && map.getBounds().contains(restaurants[index].marker.getPosition())){
 						$(this).removeClass('hide');
-						resto.marker.setVisible(true);
+						restaurants[index].marker.setVisible(true);
 					// Si  li est caché et marker n'est pas sur la map 
 					}else if($(this).hasClass('hide')){
-						resto.marker.setVisible(true);
+						restaurants[index].marker.setVisible(true);
 					};
 				}
 			});
