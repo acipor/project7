@@ -1,4 +1,4 @@
-// initmap
+//----------  initmap -----------------------
 function initMap(){
     map = new google.maps.Map(document.getElementById('map'),
      {
@@ -35,7 +35,7 @@ function initMap(){
         }   
 }
 
- // erreur
+ //----------  erreur ----------------------------------------------
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         var infoWindow = new google.maps.InfoWindow({map: map});
         infoWindow.setPosition(pos);

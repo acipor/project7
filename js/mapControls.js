@@ -105,8 +105,8 @@ function callback(results, status){
 var liClique="";
 // document.ready
 $(document).ready(function(){
-        $('#starsForm').starRating({initialRating: 2.5, starSize: 25, disableAfterRate: false});   
-        // recherche du li clique a partir de sa classe panel-heading   
+        $('#starsForm').starRating({initialRating: 3, starSize: 25, disableAfterRate: false});   
+        // recherche du li cliqué a partir de sa classe panel-heading   
         $(document).on("click", ".panel-heading", function () {
                 liClique = this.id;   
             });

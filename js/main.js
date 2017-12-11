@@ -28,6 +28,6 @@ $.getJSON(jsonFile, function(result){
             newRestaurant.listRestaurantRatings(nbMarker);
             // Ajout de la note moyenne à ce restaurant
             var thatli =  $('li').last().find('.restaurantAvgRating');
-            listNoteMoy (thatli,newRestaurant.noteMoyRatig,true,starRestaurantsSize); 
+            listNoteMoy (thatli,avgRatings,true,starRestaurantsSize); 
       }); // fin each
 });  // fin getjson

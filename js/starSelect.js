@@ -1,6 +1,6 @@
 // ------ affichage des etoiles de la note moyenne note:initialRa dans la li=findli ----------------------------------------
-function listNoteMoy (findli,initialRa,reado,stsize) {
-          findli.starRating({ 
+function listNoteMoy (rechli,initialRa,reado,stsize) {
+          rechli.starRating({ 
                     initialRating: initialRa,
                     readOnly: reado,
                     starSize: stsize
@@ -46,7 +46,7 @@ var starSelect = {
 		$('#btnStarSelect').on('click', function(){
 			var minStar = Number($('#starMin').starRating('getRating')); // Note min
 			var maxStar = Number($('#starMax').starRating('getRating')); // Note max
-			$('li').each(function(index){ 
+			$('li').each(function(index){ // parcours des li restaurants
 				var thatStartRating = restaurants[index].noteMoyRatig; // note du restaurant
 				if ((thatStartRating<minStar || thatStartRating>maxStar)){ // Si  li n'est pas dans note
 						$(this).addClass('hide'); // on cache li
