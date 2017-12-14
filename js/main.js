@@ -26,8 +26,7 @@ $.getJSON(jsonFile, function(result){
             newRestaurant.listRestaurant(nbMarker); 
             // affichage des ratings du restaurant
             newRestaurant.listRestaurantRatings(nbMarker);
-            // Ajout de la note moyenne à ce restaurant
-            var thatli =  $('li').last().find('.restaurantAvgRating');
-            listNoteMoy (thatli,avgRatings,true,starRestaurantsSize); 
+            // affichage  de la note moyenne de ce restaurant en etoiles
+            $('li').last().find('.restaurantAvgRating').starRating({initialRating: avgRatings,readOnly: true,starSize: starRestaurantsSize});  
       }); // fin each
 });  // fin getjson

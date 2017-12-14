@@ -12,8 +12,8 @@ google.maps.event.addDomListener(map, 'zoom_changed', function() {
 
 // evenement dragend sur map
 map.addListener('dragend', function(){
-   position = map.getCenter();
-   addRestaurantNearby(position); // recherche restaurants 
+   position = map.getCenter(); // repositionnement du centre
+   addRestaurantNearby(position); // recherche restaurants autour de position
 });
 
 // mise a jour des restaurants et  markers quand les limites de la map changent
@@ -59,8 +59,11 @@ map.addListener('click', function(event){
         restaurants.push(newRestaurant); // ajout au array restaurants
         newRestaurant.listRestaurant(liLength+1); // affichage du restaurant
         // Ajout de la note moyenne à ce restaurant
-        var thatli =  $('li').last().find('.restaurantAvgRating');
-        listNoteMoy (thatli,0,true,starRestaurantsSize); 
+        $("#" + nbMarker).find('.restaurantAvgRating').starRating({ 
+                    initialRating: 0,
+                    readOnly: true,
+                    starSize: starRestaurantsSize
+                      });  
         // test si le restaurant newRestaurant a une note  starMin et starMax
          newRestaurant.listRestaurantMinMax(Number($('#starMin').starRating('getRating')),Number($('#starMax').starRating('getRating')));
     }); 

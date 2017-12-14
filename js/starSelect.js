@@ -1,13 +1,4 @@
-// ------ affichage des etoiles de la note moyenne note:initialRa dans la li=findli ----------------------------------------
-function listNoteMoy (rechli,initialRa,reado,stsize) {
-          rechli.starRating({ 
-                    initialRating: initialRa,
-                    readOnly: reado,
-                    starSize: stsize
-                      });  
- }  
- 
-//------------  Tri des restaurants en fonctions des etoiles min et max--------------------------------
+//------------  affichage des restaurants à montrer --------------------------------
 var starSelect = {
 
 	init: function(){
@@ -43,6 +34,7 @@ var starSelect = {
 		$('<button/>').addClass('btn btn-success btn-lg').attr('id', "btnStarSelect").text(textBtnSelect).appendTo(divBtnStarSelect);
 
 		// event sur clique  bouton classer
+		// Tri des restaurants en fonctions des etoiles min et max
 		$('#btnStarSelect').on('click', function(){
 			var minStar = Number($('#starMin').starRating('getRating')); // Note min
 			var maxStar = Number($('#starMax').starRating('getRating')); // Note max
